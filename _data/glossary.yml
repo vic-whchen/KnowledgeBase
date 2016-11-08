@@ -1,0 +1,19 @@
+RTTI: "Runtime Type Identification"
+
+STL: "Standard Template Library"
+
+class_definition: "data (private) + methods (public)"
+
+polymorphism: "multiple definitions for operators and functions"
+
+inheritance: "derive new classes from old ones"
+
+declaration_statement: "announces the name and the type of a variable used in a function"
+
+message_statement: "sends a message to an object, initiating some sort of action"
+
+function_prototype: "declares the return type for a function, along with the number and type of arguments the function expects"
+
+qualifier: "it qualifies the meaning of a declaration"
+
+integral_promotions: "C++ automatically converts `bool`, `char`, `unsigned char`, `signed char`, and `short` values to `int`."

@@ -1,0 +1,40 @@
+# This is sidebar TOC. The sidebar code loops through sections here and provides the appropriate formatting.
+
+entries:
+- title: sidebar
+  product: Computer Science
+  version:
+  folders:
+
+  - title:
+    output: pdf
+    type: frontmatter
+    folderitems:
+    - title:
+      url: /titlepage
+      output: pdf
+      type: frontmatter
+    - title:
+      url: /tocpage
+      output: pdf
+      type: frontmatter
+
+  - title: C++ Programming
+    output: web, pdf
+    folderitems:
+
+    - title: Getting Started
+      url: /computer_science_getting_started.html
+      output: web, pdf
+
+      subfolders:
+      - title: Basic Notes
+        output: web, pdf
+
+        subfolderitems:
+        - title: Introduction, Data Types
+          url: /computer_science_cpp_part_1.html
+          output: web, pdf
+        - title: Expressions, Functions
+          url: /computer_science_cpp_part_2.html
+          output: web, pdf

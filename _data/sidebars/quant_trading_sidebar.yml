@@ -1,0 +1,63 @@
+# This is sidebar TOC. The sidebar code loops through sections here and provides the appropriate formatting.
+
+entries:
+- title: sidebar
+  product: Quantitative Trading
+  version:
+  folders:
+
+  - title:
+    output: pdf
+    type: frontmatter
+    folderitems:
+    - title:
+      url: /titlepage
+      output: pdf
+      type: frontmatter
+    - title:
+      url: /tocpage
+      output: pdf
+      type: frontmatter
+
+  - title: Quant Trading in China
+    output: web, pdf
+    folderitems:
+    - title: UFX API by HangSeng
+      url: /quant_trading_ufx_api.html
+      output: web, pdf
+    - title: LTS API by HuaBao Securities
+      url: /quant_trading_lts_api.html
+      output: web, pdf
+    - title: CTP API by Shanghai Future
+      url: /quant_trading_ctp_api.html
+      output: web, pdf
+      subfolders:
+      - title: Python-based VN.PY
+        output: web, pdf
+        subfolderitems:
+        - title: Part I - Python API Wrapper
+          url: /quant_trading_vnpy_1.html
+          output: web, pdf
+        - title: Part II - Three-Layer Arch
+          url: /quant_trading_vnpy_2.html
+          output: web, pdf
+    - title: XAPI2 - QuantBox
+      url: /quant_trading_xapi2.html
+      output: web, pdf
+
+  - title: Quant Trading Overseas
+    output: web, pdf
+    folderitems:
+    - title: AlgoTrader
+      url: /quant_trading_algotrader.html
+      output: web, pdf
+
+  - title: Documentation Center
+    output: web, pdf
+    folderitems:
+    - title: Release Notes v1.0
+      url: /quant_trading_release_notes_v10.html
+      output: web, pdf
+    - title: Abbreviations List
+      url: /quant_trading_abbr_list.html
+      output: web, pdf

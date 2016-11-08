@@ -1,0 +1,23 @@
+## Topnav single links
+topnav:
+- title: Topnav
+  items:
+    - title: Announcements
+      url: /announcements
+
+#Topnav dropdowns
+topnav_dropdowns:
+- title: Topnav dropdowns
+  folders:
+    - title: Resources
+      folderitems:
+        - title: Blog on Github
+          external_url: https://github.com/vic-whchen/blog
+        - title: Computing Pearls
+          external_url: http://www.whchen.io
+    - title: Categories
+      folderitems:
+        - title: Computer Science
+          url: /computer_science_getting_started.html
+        - title: Quantitative Trading
+          url: /quant_trading_release_notes_v10.html
