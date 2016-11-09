@@ -2,6 +2,7 @@ allowed-tags:
   - abbreviations
   - announcements
   - getting_started
+  - programming
   - quant_api
   - quant_trading
   - release_notes

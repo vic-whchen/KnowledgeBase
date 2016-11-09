@@ -1,8 +1,8 @@
 ---
-title: "Announcements Pages"
-tagName: announcements
+title: "Programming Pages"
+tagName: programming
 search: exclude
-permalink: tag_announcements.html
+permalink: tag_programming.html
 sidebar: home_sidebar
 folder: tags
 ---

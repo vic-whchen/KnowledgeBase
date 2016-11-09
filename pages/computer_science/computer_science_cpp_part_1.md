@@ -1,12 +1,12 @@
 ---
-title: VNPY by VN.PY (Part I)
-tags: [quant_trading, quant_api]
-keywords: quant trading, python wrapper, quant api
-summary: "VNPY is a Python-based open source quant trading platform. The methodology of Python API wrapper, and its design of event-based engine will be discussed in detail in this first part."
+title: Introduction and Data Types
+tags: [programming]
+keywords: c++ programming, data types,
+summary: "TODO"
 sidebar: computer_science_sidebar
 permalink: computer_science_cpp_part_1.html
 folder: computer_science
-last_updated: Nov 7, 2016
+last_updated: Nov 9, 2016
 ---
 
 ## Introduction
@@ -23,7 +23,7 @@ last_updated: Nov 7, 2016
 
 | Standard | Features |
 |----------:|----------|
-| <span class="label label-success">C++98/03</span>  | existing C++ features, exceptions, <a href="#" data-toggle="tooltip" data-original-title="{{site.data.glossary.RTTI}}">RTTI</a>, templates, and <a href="#" data-toggle="tooltip" data-original-title="{{site.data.glossary.STL}}">STL</a> |
+| <span class="label label-primary">C++98/03</span>  | existing C++ features, exceptions, <a href="#" data-toggle="tooltip" data-original-title="{{site.data.glossary.RTTI}}">RTTI</a>, templates, and <a href="#" data-toggle="tooltip" data-original-title="{{site.data.glossary.STL}}">STL</a> |
 | <span class="label label-success">C++11</span> | more features, inconsistencies removal ( `-std=c++0x` ) |
 
 {% include callout.html content="**Portability**: recompile the program without making changes and it runs without a hitch." type="primary" %}
@@ -143,6 +143,64 @@ int psychics{};
 std::vector<double> scores;   // useful for complicated types like STL
 auto pv = scores.begin();
 {% endhighlight %}
+
+## Compound Types
+
+### Arrays & Structures
+
+{% include callout.html content="**Array** general declaration form is `typeName arrayName[arraySize]`.<br/>Empty `arraySize` forces compiler to count size (**not** recommend but safe for `char` array).<br/>Alternatives are **`vector`** template class and <span class=\"label label-success\">C++11</span>**`array`** template class in **C++ STL**." type="primary" %}
+
+{% include callout.html content="**Structure** variables use **membership operator** `.` to access its members.<br/>Assignment operator `=` can be used for **same** structure types." type="primary" %}
+
+{% highlight cpp linenos %}
+float hotelTips[5] = {5.0, 2.5};  // initialize partially, others are 0
+long  totals[500]  = {0};         // initialize all elements to 0
+
+/// C++11 list-initialization
+double earnings[4] {1.2e4, 1.6e4, 1.1e4, 1.7e4};  // optional `=`
+unsigned int counts[10] = {};                     // all elements set to 0
+{% endhighlight %}
+
+{% highlight cpp linenos %}
+/// structure declaration
+struct inflatable
+{
+  std::string name;
+  float volume;
+  unsigned int SN : 4;    // bit field specifies # of bits a member occupies
+};  // variables can be created simultaneously: `} var1, var2;`
+
+/// structure variables declaration
+struct inflatable goose;            // keyword `struct` required in C
+inflatable vincent;                 // keyword `struct` not required in C++
+
+/// C++11 list-initialization
+inflatable duck {"Daphne", 0.12};   // optional `=`
+{% endhighlight %}
+
+{% include callout.html content="<span class=\"label label-success\">C++11</span> **List-initialization** protects against **narrowing**." type="danger" %}
+
+### `string` Class
+
+{% include callout.html content="**C-style string** is an array of `char` which ends with a **null character** `\0` explicitly. But it is implicitly included in quoted strings.<br/>**C++-style string** <span class=\"label label-primary\">C++98</span>, available in `<string>` header file and `std` namespace, is a `string` class variable or entity." type="primary" %}
+
+{% highlight cpp linenos %}
+/// C++11 list-initialization
+char first_date[] = {"Le Chapon Dodu"};   // empty `[]` is safe in C-style
+string third_date   {"The Bread Bowl"};   // C++ string object
+
+/// concatenation & copy
+str3 = str1 + str2;           // C++-style
+strcpy(chararr3, chararr1);   // C-style method
+strcat(chararr3, chararr2);   // available in `<cstring>` header file
+
+/// size
+int len1 = str1.size();       // object.method()
+int len2 = strlen(chararrr1); // func(var)
+{% endhighlight %}
+
+{% include callout.html content="<span class=\"label label-success\">C++11</span> `u8` prefix indicates string literals of **UTF-8** encoding scheme.<br/><span class=\"label label-success\">C++11</span> **Raw string** uses `R` prefix and  delimiters of `\"(` and `)\"`, or `\"+*(` and `)+*\"`." type="primary" %}
+
 
 ## Question & Answer
 

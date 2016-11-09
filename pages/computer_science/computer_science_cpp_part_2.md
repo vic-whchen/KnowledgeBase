@@ -1,8 +1,8 @@
 ---
-title: VNPY by VN.PY (Part I)
-tags: [quant_trading, quant_api]
-keywords: quant trading, python wrapper, quant api
-summary: "VNPY is a Python-based open source quant trading platform. The methodology of Python API wrapper, and its design of event-based engine will be discussed in detail in this first part."
+title: Expressions and Functions
+tags: [programming]
+keywords: C++ programming, function
+summary: "TODO"
 sidebar: computer_science_sidebar
 permalink: computer_science_cpp_part_2.html
 folder: computer_science
