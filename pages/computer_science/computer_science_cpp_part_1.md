@@ -6,7 +6,7 @@ summary: "TODO"
 sidebar: computer_science_sidebar
 permalink: computer_science_cpp_part_1.html
 folder: computer_science
-last_updated: Nov 9, 2016
+last_updated: Nov 10, 2016
 ---
 
 ## Introduction

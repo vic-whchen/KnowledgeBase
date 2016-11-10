@@ -4,5 +4,6 @@ _site/
 _pdf
 .idea/
 .DS_Store
+pdf/*
 pdfconfigs/*
 *.sh
