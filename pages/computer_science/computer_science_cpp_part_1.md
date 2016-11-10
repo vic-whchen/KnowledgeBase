@@ -2,7 +2,7 @@
 title: Introduction and Data Types
 tags: [programming]
 keywords: c++ programming, data types,
-summary: "TODO"
+summary: "This part gives an brief introduction to C++ programming language. Two fundamental built-in types: integers and floating-point numbers are discussed here. More elaborate types, including arrays, structures, pointers, and string class are discussed as well."
 sidebar: computer_science_sidebar
 permalink: computer_science_cpp_part_1.html
 folder: computer_science
