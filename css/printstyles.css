@@ -30,7 +30,8 @@ a[href*="mailto"]::after, a[data-toggle="tooltip"]::after, a[href].noCrossRef::a
 
 
 @page {
-    margin: 60pt 90pt 60pt 90pt;
+    /*margin: 60pt 90pt 60pt 90pt;*/
+    margin: 36pt 36pt 36pt 36pt;
     font-family: sans-serif;
     font-style:none;
     color: gray;
@@ -157,4 +158,3 @@ h1 { string-set: doctitle content() }
 pre {
     background-color: #fafafa;
 }
-
