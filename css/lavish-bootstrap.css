@@ -463,6 +463,11 @@ h4 small,
   margin-top: 0;
   margin-bottom: 0px;
 }
+.panel-collapse .bs-callout {
+  padding: 10px;
+  margin: 15px 0;
+}
+
 ul, ol {
   margin-top: 0;
   margin-bottom: 10px;

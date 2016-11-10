@@ -378,7 +378,7 @@ array<typeName, n_elem> arr;  // fixed size on stack, more efficient
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a class="noCrossRef accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseEight">Two pointer notations for accessing structure members</a>
+        <a class="noCrossRef accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseEight">What are the two pointer notations for accessing structure members?</a>
       </h4>
     </div>
     <div id="collapseEight" class="panel-collapse collapse noCrossRef">
@@ -396,7 +396,7 @@ array<typeName, n_elem> arr;  // fixed size on stack, more efficient
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a class="noCrossRef accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseNine">Four ways of managing memory for data in C++</a>
+        <a class="noCrossRef accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseNine">Whar are the four ways of managing memory for data in C++?</a>
       </h4>
     </div>
     <div id="collapseNine" class="panel-collapse collapse noCrossRef">
