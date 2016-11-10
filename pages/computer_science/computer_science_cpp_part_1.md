@@ -28,7 +28,7 @@ last_updated: Nov 9, 2016
 
 {% include callout.html content="**Portability**: recompile the program without making changes and it runs without a hitch." type="primary" %}
 
-### Compile and Link
+### Compile & Link
 
 | Phase | Functions |
 |-------:|----------|
@@ -83,7 +83,7 @@ last_updated: Nov 9, 2016
 | | `bool`, `char`, `wchar_t` | `char16_t`, `char32_t` |
 | **Floating-point** | `float`, `double`, `long double` | |
 
-### Integer Initialization and Literals
+### Integer Initialization & Literals
 
 {% highlight cpp linenos %}
 int owls = 101;   // traditional C initialization
@@ -201,6 +201,68 @@ int len2 = strlen(chararrr1); // func(var)
 
 {% include callout.html content="<span class=\"label label-success\">C++11</span> `u8` prefix indicates string literals of **UTF-8** encoding scheme.<br/><span class=\"label label-success\">C++11</span> **Raw string** uses `R` prefix and  delimiters of `\"(` and `)\"`, or `\"+*(` and `)+*\"`." type="primary" %}
 
+### Unions & Enumerations
+
+{% include callout.html content="**Union** holds different data types but only one type at a time.<br/>**Enumeration** creates symbolic constants. **Enumerators** are assigned integer by default.<br/><span class=\"label label-success\">C++11</span> Enumeration is extended with a form of **scoped enumeration**." type="primary" %}
+
+{% highlight cpp linenos %}
+/// union data format
+union one4all {
+  int int_val;
+  long long_val;
+  double double_val;    // as the size of `one4all`
+};
+
+/// enumeration data format
+enum spectrum {         // enumeration: spectrum
+  red, orange, blue     // enumerators: red, orange, blue
+};
+spectrum band;          // spectrum variable
+band = blue;            // valid
+band = spectrum(3);     // typecast 3 to type spectrum
+{% endhighlight %}
+
+### Pointers
+
+{% include callout.html content="**Pointer** holds address of a value. while **pointer name** represents the location.<br/>**Indirect value** / **dereferencing operator** `*` yields the value at the location.<br/>C++ recommends `int* ptr` form to indicate a **pointer-to-int** type.<br/>C++ calls a pointer with value `0` as `null pointer`." type="primary"%}
+
+{% highlight cpp linenos %}
+int higgens = 5;
+int* ptr = &higgens;      // `ptr`, not `*ptr`, is initialized by an address
+
+int* pt1 = new int;       // `new` allocates memory in heap or free store
+delete pt1;               // `delete` frees memory to which `ps` points
+
+int * pt2 = new int [5];  // create dynamic array based on dynamic binding
+delete [] pt2;            // free a dynamic array
+{% endhighlight %}
+
+{% include callout.html content="**Pointer arithmetic** increase the address by **number of bytes** of the data type.<br/>**Array name** is interpreted as an **address** (of first element) in C++.<br/>**Array notation** `[]` is equivalent to dereferencing a pointer." type="primary"%}
+
+{% highlight cpp linenos %}
+arr[i] == *(arr + i)
+ptr[i] == *(ptr + i)
+{% endhighlight %}
+
+{% include callout.html content="For structures, use **`.`** with structure name, use **`->`** with pointer–to–structure." type="danger"%}
+
+{% highlight cpp linenos %}
+struct things { int good; int bad; };
+things grubnose = {2, 13};    // use grubnose.good
+things* pt = &grubnose;       // use pt->good
+{% endhighlight %}
+
+### `vector` & <span class="label label-success">C++11</span> `array` Template Class
+
+{% highlight cpp linenos %}
+#include <vector>
+#include <array>
+
+vector<typeName> vt(n_elem);  // dynamic size on heap/free storage
+array<typeName, n_elem> arr;  // fixed size on stack, more efficient
+{% endhighlight %}
+
+{% include callout.html content="For `array` object, assignment to another array object is **allowed**.<br/>For **built-in** arrays, data has to be copied **element-by-element**." type="danger"%}
 
 ## Question & Answer
 
@@ -308,6 +370,58 @@ int len2 = strlen(chararrr1); // func(var)
         <li>use <code class="highlighter-rouge">put()</code>: <code class="highlighter-rouge">cout.put(char(88));</code></li>
         <li>C++-style type cast: <code class="highlighter-rouge">cout &lt;&lt; char(88) &lt;&lt; endl;</code></li>
         <li>C-style type cast: <code class="highlighter-rouge">cout &lt;&lt; (char)88 &lt;&lt; endl;</code></li>
+      </ul>
+      </div>
+    </div>
+  </div>
+  <!-- /.panel -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a class="noCrossRef accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseEight">Two pointer notations for accessing structure members</a>
+      </h4>
+    </div>
+    <div id="collapseEight" class="panel-collapse collapse noCrossRef">
+      <div class="panel-body">
+      <figure class="highlight"><pre><code class="language-cpp hljs" data-lang="cpp"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno"><span class="hljs-number">1</span>
+<span class="hljs-number">2</span>
+<span class="hljs-number">3</span></pre></td><td class="code"><pre><span class="k"><span class="hljs-keyword">struct</span></span> <span class="n">inflatable</span><span class="o">*</span> <span class="n">ps</span> <span class="o">=</span> <span class="k"><span class="hljs-keyword">new</span></span> <span class="n">inflatable</span><span class="p">;</span>
+<span class="n"><span class="hljs-built_in">cout</span></span> <span class="o">&lt;&lt;</span> <span class="n">ps</span><span class="o">-&gt;</span><span class="n">name</span> <span class="o">&lt;&lt;</span> <span class="n">end</span><span class="p">;</span>
+<span class="n"><span class="hljs-built_in">cout</span></span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="o">*</span><span class="n">ps</span><span class="p">).</span><span class="n">volume</span> <span class="o">&lt;&lt;</span> <span class="n"><span class="hljs-built_in">endl</span></span><span class="p">;</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
+      </div>
+    </div>
+  </div>
+  <!-- /.panel -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a class="noCrossRef accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseNine">Four ways of managing memory for data in C++</a>
+      </h4>
+    </div>
+    <div id="collapseNine" class="panel-collapse collapse noCrossRef">
+      <div class="panel-body">
+      <ol>
+        <li><strong>Automatic Storage</strong>: automatic variables typically stored on <strong>stack</strong> (<strong>LIFO</strong>)</li>
+        <li><strong>Static Storage</strong>: define <strong>externally</strong> (outside function) or use keyword <code class="highlighter-rouge">static</code></li>
+        <li><strong>Dynamic Storage</strong>: on <strong>heap</strong> or free store by <code class="highlighter-rouge">new</code>/<code class="highlighter-rouge">delete</code> operator</li>
+        <li><span class="label label-success">C++11</span> <strong>Thread Storage</strong>: <code class="highlighter-rouge">thread_local</code> storage class specifier</li>
+      </ol>
+      </div>
+    </div>
+  </div>
+  <!-- /.panel -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a class="noCrossRef accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTen">For <code class="highlighter-rouge">vector</code>/<code class="highlighter-rouge">array</code> object, what’s the difference between using <code class="highlighter-rouge">[]</code> and <code class="highlighter-rouge">at()</code>?</a>
+      </h4>
+    </div>
+    <div id="collapseTen" class="panel-collapse collapse noCrossRef">
+      <div class="panel-body">
+      <ul>
+        <li>C++ does <strong>not</strong> check for out-of-range errors if using <code class="highlighter-rouge">[]</code> notation</li>
+        <li><code class="highlighter-rouge">at()</code> member function <strong>catches</strong> errors during <strong>runtime</strong> and aborts (longer runtime)</li>
       </ul>
       </div>
     </div>
