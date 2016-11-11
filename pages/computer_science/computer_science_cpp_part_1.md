@@ -414,7 +414,7 @@ array<typeName, n_elem> arr;  // fixed size on stack, more efficient
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a class="noCrossRef accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTen">For <code class="highlighter-rouge">vector</code>/<code class="highlighter-rouge">array</code> object, what’s the difference between using <code class="highlighter-rouge">[]</code> and <code class="highlighter-rouge">at()</code>?</a>
+        <a class="noCrossRef accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTen">For <code class="highlighter-rouge">vector</code>/<code class="highlighter-rouge">array</code> object, what's the difference between using <code class="highlighter-rouge">[]</code> and <code class="highlighter-rouge">at()</code>?</a>
       </h4>
     </div>
     <div id="collapseTen" class="panel-collapse collapse noCrossRef">
