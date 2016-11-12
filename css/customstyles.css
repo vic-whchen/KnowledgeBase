@@ -800,7 +800,9 @@ table p {
 .panel-collapse figure.highlight {
   margin: auto 0;
 }
-
+table figure.highlight {
+  margin: 0;
+}
 figure.highlight {
   margin-top: 20px;
   margin-bottom: 10px;

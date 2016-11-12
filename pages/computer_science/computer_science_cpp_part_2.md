@@ -236,6 +236,67 @@ ref_const (int_val);        // case 2: convertible type
 
 {% include warning.html content="Compiler considers reference to a type and the type itself as **same** signature." %}
 
+### Function Templates
+
+| Template Type | Comments |
+|--------------:|----------|
+| **Original Template** | featured with **parameterized types** |
+| **Explicit Specialization** | use different code for certain types |
+| **Implicit Instantiation** | compiler generates fucntion definition for certain types|
+| **Explicit Instantiation** | instruct compiler to create certain instantiation |
+
+{% highlight cpp linenos %}
+/// non-template function prototype:    highest priority
+void Swap (job &, job &);
+
+/// template function prototype:        lowest priority
+template <typename T>
+void Swap (T &, T &);
+
+/// explicit specialization prototype:  middle priority
+template <> void Swap<job> (job &, job &); // for `job` structure type
+
+/// implicit instantiation
+int rank1, rank2;
+Swap (rank1, rank2); // generates `void Swap(int &, int &);`
+
+/// explicit instantiation
+template void Swap<double> (char &, char &); // inistantiation for `char`
+Swap (char1, char2);
+{% endhighlight %}
+
+### Overloading Resolution
+
+| Phase of Task | Target |
+|:-----|------|--------|
+| **1**. candidate functions | functions and template functions with **same name** |
+| **2**. viable functions | correct number of parameters with **convertible** types |
+| **3**. best viable | **exact match** > conversion (promotion > standard > user-defined) |
+
+{% highlight cpp linenos %}
+/// ambiguity is NOT allowed for exact match
+/// in 3 special cases, best match can still be selected
+
+recycle (ink);  // `ink` is a `blob` structure
+
+/// case 1: non-`const` ptr/ref arguments for non-`const` ptr/ref parameters
+///         only applied to data referred by pointer/reference
+void recycle (blot &);        // call this
+void recycle (const blot &);
+
+/// case 2: non-template function better than template (or specialization)
+void recycle (blot &);                    // call this
+template <class Type> void recycle (T &);
+
+/// case 3: more specialized template function is better
+template <typename T> void recycle (T &);
+template <> void recycle<blot> (blot &);  // call this
+
+/// Force to use template function
+lesser<> (dbl1, dbl2);     // use `double` type template
+lesser<int> (dbl1, dbl2);  // use `int` type template with type cast
+{% endhighlight %}
+
 ## Question & Answer
 
 <div class="panel-group" id="accordion">
@@ -528,6 +589,66 @@ ref_const (int_val);        // case 2: convertible type
         <li><strong>Name decoration</strong>/<strong>mangling</strong> tracks overloaded functions (<strong>different</strong> signatures)</li>
         <li>For functions perform basically same task. Alternative is using <strong>default arguments</strong>.</li>
       </ul>
+      </div>
+    </div>
+  </div>
+  <!-- /.panel -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a class="noCrossRef accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseEighteen">What are the limitations of template function and corresponding solutions?</a>
+      </h4>
+    </div>
+    <div id="collapseEighteen" class="panel-collapse collapse noCrossRef">
+      <div class="panel-body">
+      <p>Template function might not be able to handle <strong>certain types</strong> (e.g., structures addition).</p>
+      <ul>
+        <li><strong>overload operator</strong> <code class="highlighter-rouge">+</code> for particular form of structure or class</li>
+        <li>provide <strong>specialized</strong> template definitions for particular types</li>
+      </ul>
+      </div>
+    </div>
+  </div>
+  <!-- /.panel -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a class="noCrossRef accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseNineteen">How to determine the type of <code class="highlighter-rouge">xpy = (T1) x + (T2) y;</code> in a template function?</a>
+      </h4>
+    </div>
+    <div id="collapseNineteen" class="panel-collapse collapse noCrossRef">
+      <div class="panel-body">
+      <p><span class="label label-success">C++11</span> <code class="highlighter-rouge">decltype</code> keyword: <code class="highlighter-rouge">decltype(expression) var;</code></p>
+      <figure class="highlight"><pre><code class="language-cpp hljs" data-lang="cpp"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno"><span class="hljs-number">1</span>
+<span class="hljs-number">2</span>
+<span class="hljs-number">3</span>
+<span class="hljs-number">4</span></pre></td><td class="code"><pre><span class="k"><span class="hljs-keyword">decltype</span></span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="p">)</span> <span class="n">xpy</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">;</span>  <span class="c1"><span class="hljs-comment">// `xpy` is type of calculated type of `x + y`</span>
+</span><span class="k"><span class="hljs-keyword">decltype</span></span><span class="p">(</span><span class="n">indeed</span><span class="p">(</span><span class="mi"><span class="hljs-number">3</span></span><span class="p">))</span> <span class="n">mol</span><span class="p">;</span>    <span class="c1"><span class="hljs-comment">// `mol` is type of return type of `indeed()`</span>
+</span><span class="k"><span class="hljs-keyword">decltype</span></span><span class="p">((</span><span class="n">xx</span><span class="p">))</span> <span class="n">rh2</span> <span class="o">=</span> <span class="n">dbl</span><span class="p">;</span>   <span class="c1"><span class="hljs-comment">// `rh2` is type of `double &amp;`</span>
+</span><span class="k"><span class="hljs-keyword">decltype</span></span><span class="p">(</span><span class="mi"><span class="hljs-number">100L</span></span><span class="p">)</span> <span class="n">ip2</span><span class="p">;</span>         <span class="o"><span class="hljs-comment">//</span></span><span class="hljs-comment"> </span><span class="err"><span class="hljs-comment">`</span></span><span class="n"><span class="hljs-comment">ip2</span></span><span class="err"><span class="hljs-comment">`</span></span><span class="hljs-comment"> </span><span class="n"><span class="hljs-comment">is</span></span><span class="hljs-comment"> </span><span class="n"><span class="hljs-comment">type</span></span><span class="hljs-comment"> </span><span class="n"><span class="hljs-comment">of</span></span><span class="hljs-comment"> </span><span class="n"><span class="hljs-comment">expression</span></span><span class="hljs-comment"> </span><span class="n"><span class="hljs-comment">type</span></span><span class="hljs-comment"> </span><span class="p"><span class="hljs-comment">(</span></span><span class="kt"><span class="hljs-comment">long</span></span><span class="p"><span class="hljs-comment">)</span></span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
+      </div>
+    </div>
+  </div>
+  <!-- /.panel -->
+  <!-- /.panel -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a class="noCrossRef accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwenty">How to determine the return type of a template function which <code class="highlighter-rouge">return (T1) x + (T2) y;</code>?</a>
+      </h4>
+    </div>
+    <div id="collapseTwenty" class="panel-collapse collapse noCrossRef">
+      <div class="panel-body">
+      <p><span class="label label-success">C++11</span> <strong>trailing return type</strong>: <code class="highlighter-rouge">auto func() -&gt; decltype(expression)</code></p>
+      <figure class="highlight"><pre><code class="language-cpp hljs" data-lang="cpp"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno"><span class="hljs-number">1</span>
+<span class="hljs-number">2</span>
+<span class="hljs-number">3</span>
+<span class="hljs-number">4</span></pre></td><td class="code"><pre><span class="k"><span class="hljs-keyword">template</span></span> <span class="o">&lt;</span><span class="k"><span class="hljs-keyword">typename</span></span> <span class="n">T1</span><span class="p">,</span> <span class="k"><span class="hljs-keyword">typename</span></span> <span class="n">T2</span><span class="o">&gt;</span>
+<span class="k"><span class="hljs-function"><span class="hljs-keyword">auto</span></span></span><span class="hljs-function"> </span><span class="n"><span class="hljs-function"><span class="hljs-title">gt</span></span></span><span class="hljs-function"> </span><span class="p"><span class="hljs-function"><span class="hljs-params">(</span></span></span><span class="n"><span class="hljs-function"><span class="hljs-params">T1</span></span></span><span class="hljs-function"><span class="hljs-params"> </span></span><span class="n"><span class="hljs-function"><span class="hljs-params">x</span></span></span><span class="p"><span class="hljs-function"><span class="hljs-params">,</span></span></span><span class="hljs-function"><span class="hljs-params"> </span></span><span class="n"><span class="hljs-function"><span class="hljs-params">T2</span></span></span><span class="hljs-function"><span class="hljs-params"> </span></span><span class="n"><span class="hljs-function"><span class="hljs-params">y</span></span></span><span class="p"><span class="hljs-function"><span class="hljs-params">)</span></span></span><span class="hljs-function"> </span><span class="o"><span class="hljs-function">-&gt;</span></span><span class="hljs-function"> </span><span class="k"><span class="hljs-function"><span class="hljs-title">decltype</span></span></span><span class="p"><span class="hljs-function"><span class="hljs-params">(</span></span></span><span class="n"><span class="hljs-function"><span class="hljs-params">x</span></span></span><span class="hljs-function"><span class="hljs-params"> </span></span><span class="o"><span class="hljs-function"><span class="hljs-params">+</span></span></span><span class="hljs-function"><span class="hljs-params"> </span></span><span class="n"><span class="hljs-function"><span class="hljs-params">y</span></span></span><span class="p"><span class="hljs-function"><span class="hljs-params">)</span></span></span><span class="hljs-function"> </span><span class="p">{</span>
+    <span class="k"><span class="hljs-keyword">return</span></span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">;</span>
+<span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
       </div>
     </div>
   </div>

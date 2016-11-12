@@ -4687,7 +4687,7 @@ a.list-group-item:focus {
   border-bottom-left-radius: 3px;
 }
 .panel-group .panel {
-  margin-bottom: 0;
+  margin-bottom: 10px;
   border-radius: 4px;
   overflow: hidden;
 }
