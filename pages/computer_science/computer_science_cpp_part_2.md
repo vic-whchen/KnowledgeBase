@@ -192,7 +192,49 @@ for (int i = 0; i < 3; i++) {
 }
 {% endhighlight %}
 
-## Functions: Part 2
+## Functions: Advanced Topics
+
+### Reference Variables
+
+{% highlight cpp linenos %}
+/// reference, a compound type, is a name alias
+int& rodents = rats; // initialization is required when being declared
+
+/// reference is more often used as function parameters
+double refcube(const double &ra);   // passing by reference
+{% endhighlight %}
+
+{% include callout.html content="non-`const` reference: **only** accepts non-`const` arguments with **matched** types<br/>`const` reference: accepts `const` & `non-const` arguments by using **temporary variable**" type="primary" %}
+
+{% highlight cpp linenos %}
+double ref_non   (double& value);       // only accept non-const `double`
+
+double ref_const (const double& value); // accept non-const & const (recommended)
+/// will generate temporary variable in two cases
+ref_const (1.0 + dbl_val);  // case 1: correct type but non-`lvalue`
+ref_const (int_val);        // case 2: convertible type
+{% endhighlight %}
+
+| Type | Recommended Passing (*no* mod) | Recommended Passing (*with* mod) |
+|-----:|:------------------------------:|:--------------------------------:|
+| **small built-in** | value | pointer |
+| **array** | `const` pointer (**only** way) | pointer (**only** way) |
+| **structure** | `const` pointer / `const` reference |  pointer / reference |
+| **class object** | `const` reference (**standard** way) | reference |
+
+### Default Arguments
+
+| Type | Direction | Example |
+|-----:|:---------:|---------|
+| **Parameters** | add from right to left | `int harpo (int n, int m = 4, int j = 5);` |
+| **Arguments** | assign from left to right | `beeps = harpo (8, 7);` |
+
+
+### Function Overloading
+
+{% include callout.html content="**Function Overloading** (polymorphism): same function name with different forms<br/>**Function Signature**: number, types, and order of parameters" type="primary" %}
+
+{% include warning.html content="Compiler considers reference to a type and the type itself as **same** signature." %}
 
 ## Question & Answer
 
@@ -390,6 +432,102 @@ for (int i = 0; i < 3; i++) {
 <span class="hljs-number">2</span></pre></td><td class="code"><pre><span class="k"><span class="hljs-keyword">typedef</span></span> <span class="kt"><span class="hljs-keyword">char</span></span> <span class="o">*</span> <span class="n">p_char</span><span class="p">;</span>            <span class="c1"><span class="hljs-comment">// `p_char` is of type pointer-to-char</span>
 </span><span class="k"><span class="hljs-keyword">typedef</span></span> <span class="kt"><span class="hljs-keyword">char</span></span> <span class="o">*</span> <span class="p">(</span><span class="o">*</span><span class="n">p_func</span><span class="p">)</span> <span class="p">(</span><span class="kt"><span class="hljs-keyword">int</span></span><span class="p">);</span>   <span class="o"><span class="hljs-comment">//</span></span><span class="hljs-comment"> </span><span class="err"><span class="hljs-comment">`</span></span><span class="n"><span class="hljs-comment">p_func</span></span><span class="err"><span class="hljs-comment">`</span></span><span class="hljs-comment"> </span><span class="n"><span class="hljs-comment">is</span></span><span class="hljs-comment"> </span><span class="n"><span class="hljs-comment">of</span></span><span class="hljs-comment"> </span><span class="n"><span class="hljs-comment">type</span></span><span class="hljs-comment"> </span><span class="n"><span class="hljs-comment">pointer</span></span><span class="o"><span class="hljs-comment">-</span></span><span class="n"><span class="hljs-comment">to</span></span><span class="o"><span class="hljs-comment">-</span></span><span class="n"><span class="hljs-comment">function</span></span><span class="w">
 </span></pre></td></tr></tbody></table></code></pre></figure>
+      </div>
+    </div>
+  </div>
+  <!-- /.panel -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a class="noCrossRef accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwelve">When and How to use inline functions?</a>
+      </h4>
+    </div>
+    <div id="collapseTwelve" class="panel-collapse collapse noCrossRef">
+      <div class="panel-body">
+      <p><strong>Short</strong>, <strong>nonrecursive</strong> functions that can fit in one line are good candidates.</p>
+      <figure class="highlight"><pre><code class="language-cpp hljs" data-lang="cpp"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno"><span class="hljs-number">1</span></pre></td><td class="code"><pre><span class="kr"><span class="hljs-function"><span class="hljs-keyword">inline</span></span></span><span class="hljs-function"> </span><span class="kt"><span class="hljs-function"><span class="hljs-keyword">double</span></span></span><span class="hljs-function"> </span><span class="nf"><span class="hljs-function"><span class="hljs-title">square</span></span></span><span class="hljs-function"> </span><span class="p"><span class="hljs-function"><span class="hljs-params">(</span></span></span><span class="kt"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">double</span></span></span></span><span class="hljs-function"><span class="hljs-params"> </span></span><span class="n"><span class="hljs-function"><span class="hljs-params">x</span></span></span><span class="p"><span class="hljs-function"><span class="hljs-params">)</span></span></span><span class="hljs-function"> </span><span class="p">{</span> <span class="k"><span class="hljs-keyword">return</span></span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="p">;</span> <span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
+      </div>
+    </div>
+  </div>
+  <!-- /.panel -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a class="noCrossRef accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThirteen">What types of data are <code class="highlighter-rouge">lvalue</code> or non-<code class="highlighter-rouge">lvalue</code>?</a>
+      </h4>
+    </div>
+    <div id="collapseThirteen" class="panel-collapse collapse noCrossRef">
+      <div class="panel-body">
+      <ul>
+        <li><code class="highlighter-rouge">lvalue</code>: variable, array element, structure member, reference, dereferenced pointer</li>
+        <li><strong>non</strong>-<code class="highlighter-rouge">lvalue</code>: <strong>literal</strong> constants (not quoted strings), <strong>expressions</strong> with multiple terms</li>
+      </ul>
+      </div>
+    </div>
+  </div>
+  <!-- /.panel -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a class="noCrossRef accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFourteen">What are the strong reasons to declare <code class="highlighter-rouge">const</code> reference parameters?</a>
+      </h4>
+    </div>
+    <div id="collapseFourteen" class="panel-collapse collapse noCrossRef">
+      <div class="panel-body">
+      <ul>
+        <li>it protects data from being altered inadvertently</li>
+        <li>it allows reception from both <code class="highlighter-rouge">const</code> and non-<code class="highlighter-rouge">const</code> arguments</li>
+        <li>it generates and uses temporary variable appropriately when needed</li>
+      </ul>
+      </div>
+    </div>
+  </div>
+  <!-- /.panel -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a class="noCrossRef accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFifteen">How is returning a reference different from traditional return mechanism?</a>
+      </h4>
+    </div>
+    <div id="collapseFifteen" class="panel-collapse collapse noCrossRef">
+      <div class="panel-body">
+      <ul>
+        <li>Returning a reference actually returns an <strong>alias</strong> for the referred-to variable.</li>
+        <li>Traditional return mechanism <strong>copies</strong> returned value to a temporary location.</li>
+      </ul>
+      </div>
+    </div>
+  </div>
+  <!-- /.panel -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a class="noCrossRef accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseSixteen">How to avoid returning a reference to a non-existed memory location?</a>
+      </h4>
+    </div>
+    <div id="collapseSixteen" class="panel-collapse collapse noCrossRef">
+      <div class="panel-body">
+      <ul>
+        <li>return a reference that was passed <strong>as an argument</strong> to the function</li>
+        <li>use <code class="highlighter-rouge">new</code> to create new storage ( <code class="highlighter-rouge">delete</code> by <code class="highlighter-rouge">auto_ptr</code> or <span class="label label-success">C++11</span> <code class="highlighter-rouge">unique_ptr</code> )</li>
+      </ul>
+      </div>
+    </div>
+  </div>
+  <!-- /.panel -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a class="noCrossRef accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseSeventeen">What is the mechanism of function overloading and when to use it?</a>
+      </h4>
+    </div>
+    <div id="collapseSeventeen" class="panel-collapse collapse noCrossRef">
+      <div class="panel-body">
+      <ul>
+        <li><strong>Name decoration</strong>/<strong>mangling</strong> tracks overloaded functions (<strong>different</strong> signatures)</li>
+        <li>For functions perform basically same task. Alternative is using <strong>default arguments</strong>.</li>
+      </ul>
       </div>
     </div>
   </div>
